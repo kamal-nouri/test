@@ -1,0 +1,23 @@
+h1{
+    font-family: cursive;
+}
+p{
+    font-family: cursive;
+}
+.button{
+    box-shadow: 2px 3px 3px black;
+    border-radius: 3px;
+}
+.in{
+    border: 3px solid black;
+}
+.low{
+    width: 200px;
+    height: 100px;
+    background-color: brown;
+}
+.cor{
+    width: 200px;
+    height: 100px;
+    background-color: rgb(13, 202, 54);
+}

@@ -1,0 +1,201 @@
+$ python manage.py makemigrations
+Migrations for 'ninja':
+  ninja\migrations\0001_initial.py
+    - Create model dojo
+    - Create model ninja
+(dj) 
+msys@DESKTOP-9FKBD6H MINGW64 ~/OneDrive/Desktop/python/django/dojo_ninja/dojo
+$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, ninja, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying ninja.0001_initial... OK
+  Applying sessions.0001_initial... OK
+(dj) 
+msys@DESKTOP-9FKBD6H MINGW64 ~/OneDrive/Desktop/python/django/dojo_ninja/dojo
+$ python manage.py shell
+Python 3.9.0 (tags/v3.9.0:9cf6752, Oct  5 2020, 15:34:40) [MSC v.1927 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from ninja.models import dojo ,ninja
+>>>  dojo.objects.create(name='kamal',city='nablus',state='12')
+  File "<console>", line 1
+    dojo.objects.create(name='kamal',city='nablus',state='12')
+IndentationError: unexpected indent
+>>> dojo.objects.create(name='kamal',city='nablus',state=12)   
+<dojo: dojo object (1)>
+>>> dojo.objects.create(name='abd',city='jenin',state=2)     
+<dojo: dojo object (2)>
+>>> dojo.objects.all().__dict__
+{'model': <class 'ninja.models.dojo'>, '_db': None, '_hints': {}, 'query': <django.db.models.sql.query.Query object at 0x00000227AE8F8B80>, '_result_cache': None, '_sticky_filter': False, '_for_write': False, '_prefetch_related_lookups': (), '_prefetch_done': False, '_known_related_objects': {}, '_iterable_class': <class 'django.db.models.query.ModelIterable'>, '_fields': None}
+>>> dojo.objects.all()                                       
+<QuerySet [<dojo: dojo object (1)>, <dojo: dojo object (2)>]>
+>>> dojo.objects.get(id=1).__dict__                         
+{'_state': <django.db.models.base.ModelState object at 0x00000227AE9206A0>, 'id': 1, 'name': 'kamal', 'city': 'nablus', 'state': '12'}
+>>> c=dojo.objects.get(id=1)
+>>> c.delete()
+(1, {'ninja.ninja': 0, 'ninja.dojo': 1})
+>>> a=dojo.objects.get(id=2) 
+>>> a.delete()
+(1, {'ninja.ninja': 0, 'ninja.dojo': 1})
+>>> dojo.objects.all()     
+<QuerySet []>
+>>> dojo.objects.create(name='abd',city='jenin',state=2)
+<dojo: dojo object (3)>
+>>> dojo.objects.create(name='kamal',city='nablus',state=12) 
+<dojo: dojo object (4)>
+>>> dojo.objects.create(name='weke',city='ramallah',state=4) 
+<dojo: dojo object (5)>
+>>> a=dojo.objects.get(id=3) 
+>>> a.delete()
+(1, {'ninja.ninja': 0, 'ninja.dojo': 1})
+>>> a=dojo.objects.get(id=4) 
+>>> a.delete()
+(1, {'ninja.ninja': 0, 'ninja.dojo': 1})
+>>> a=dojo.objects.get(id=5) 
+>>> a.delete()
+(1, {'ninja.ninja': 0, 'ninja.dojo': 1})
+>>> dojo.onbects.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: type object 'dojo' has no attribute 'onbects'
+>>> dojo.objects.all()
+<QuerySet []>
+>>> kamal=dojo.objects.create(name='kamal',city='nablus',state=12)
+>>> abd=dojo.objects.create(name='abd',city='jenin',state=2)     
+>>> weke=dojo.objects.create(name='weke',city='ramallah',state=1)  
+>>> dojo.objects.all()
+<QuerySet [<dojo: dojo object (6)>, <dojo: dojo object (7)>, <dojo: dojo object (8)>]>
+>>> ninja.oject.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: type object 'ninja' has no attribute 'oject'
+>>> ninja.objects.all()
+<QuerySet []>
+>>> k=ninja.objects.create(first_name='kamal',last_name='nouri',dojo=kamal) 
+>>>  a=ninja.objects.create(first_name='abd',last_name='qamheye',dojo=abd)   
+  File "<console>", line 1
+    a=ninja.objects.create(first_name='abd',last_name='qamheye',dojo=abd)
+IndentationError: unexpected indent
+>>> a=ninja.objects.create(first_name='abd',last_name='qamheye',dojo=abd)
+>>> m=ninja.objects.create(first_name='mahmoud',last_name='waked',dojo=weke) 
+>>> kamal.dojos.all()
+<QuerySet [<ninja: ninja object (1)>]>
+>>> kamal.dojos.all().__dict__
+{'model': <class 'ninja.models.ninja'>, '_db': None, '_hints': {'instance': <dojo: dojo object (6)>}, 'query': <django.db.models.sql.query.Query object at 0x00000227AE949CA0>, '_result_cache': None, '_sticky_filter': False, '_for_write': False, '_prefetch_related_lookups': (), 
+'_prefetch_done': False, '_known_related_objects': {<django.db.models.fields.related.ForeignKey: dojo>: {6: <dojo: dojo object (6)>}}, '_iterable_class': <class 'django.db.models.query.ModelIterable'>, '_fields': None}
+>>> m=ninja.objects.create(first_name='blaaaa',last_name='blaaaa',dojo=blaaa)                    
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'blaaa' is not defined
+>>> m=ninja.objects.create(first_name='blaaaa',last_name='blaaaa',dojo=kamal) 
+>>> ninja.dojos.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: type object 'ninja' has no attribute 'dojos'
+>>> kamal.dojos.all()
+<QuerySet [<ninja: ninja object (1)>, <ninja: ninja object (4)>]>
+>>> abd.dojos.all()
+<QuerySet [<ninja: ninja object (2)>]>
+>>> for i in kamal.dojos.all()
+  File "<console>", line 1
+    for i in kamal.dojos.all()
+                              ^
+SyntaxError: invalid syntax
+>>> for i in kamal.dojos.all():
+... print(i.first_name)
+  File "<console>", line 2
+    print(i.first_name)
+    ^
+IndentationError: expected an indented block
+>>> for i in kamal.dojos.all():
+... print(i.first_name) 
+  File "<console>", line 2
+    print(i.first_name)
+    ^
+IndentationError: expected an indented block
+>>> for i in kamal.dojos.all():
+... print(i.name)
+  File "<console>", line 2
+    print(i.name)
+    ^
+IndentationError: expected an indented block
+>>> ninja.objects.last() 
+<ninja: ninja object (4)>
+>>> ninja.objects.get(id=40
+... hdsf
+  File "<console>", line 2
+    hdsf
+    ^
+SyntaxError: invalid syntax
+>>> ninja.objects.get(id=4)
+<ninja: ninja object (4)>
+>>> ninja.objects.get(id=4).__dict__
+{'_state': <django.db.models.base.ModelState object at 0x00000227AE951C70>, 'id': 4, 'first_name': 'blaaaa', 'last_name': 'blaaaa', 'dojo_id': 6}
+>>> dojo.object.get(id=6)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: type object 'dojo' has no attribute 'object'
+>>> dojo.objects.get(id=6) 
+<dojo: dojo object (6)>
+>>> dojo.objects.get(id=6).__dict__
+{'_state': <django.db.models.base.ModelState object at 0x00000227AE951DF0>, 'id': 6, 'name': 'kamal', 'city': 'nablus', 'state': '12'}
+>>> use exit()
+  File "<console>", line 1
+    use exit()
+        ^
+SyntaxError: invalid syntax
+>>> exit()
+(dj) 
+msys@DESKTOP-9FKBD6H MINGW64 ~/OneDrive/Desktop/python/django/dojo_ninja/dojo
+$ python manage.py makemigrations
+You are trying to add a non-nullable field 'desc' to dojo without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+Select an option: 2
+(dj) 
+msys@DESKTOP-9FKBD6H MINGW64 ~/OneDrive/Desktop/python/django/dojo_ninja/dojo
+$ python manage.py makemigrations
+Migrations for 'ninja':
+  ninja\migrations\0002_dojo_desc.py
+    - Add field desc to dojo
+(dj) 
+msys@DESKTOP-9FKBD6H MINGW64 ~/OneDrive/Desktop/python/django/dojo_ninja/dojo
+$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, ninja, sessions
+Running migrations:
+  Applying ninja.0002_dojo_desc... OK
+(dj) 
+msys@DESKTOP-9FKBD6H MINGW64 ~/OneDrive/Desktop/python/django/dojo_ninja/dojo
+$ python manage.py shell
+Python 3.9.0 (tags/v3.9.0:9cf6752, Oct  5 2020, 15:34:40) [MSC v.1927 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> yasmeen=dojo.objects.create(name='yasmeen',city='ramallah',state=2)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'dojo' is not defined
+>>> yasmeen=dojo.objects.create(name='yasmeen',city='ramallah',state=2)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'dojo' is not defined
+>>> from ninja.models import dojo , ninja
+>>> yasmeen=dojo.objects.create(name='yasmeen',city='ramallah',state=2)
